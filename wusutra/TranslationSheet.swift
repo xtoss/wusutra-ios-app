@@ -7,6 +7,7 @@ struct TranslationSheet: View {
     @Binding var isPresented: Bool
     
     @State private var text = ""
+    @State private var phoneticText = ""
     @State private var characterCount = 0
     @FocusState private var isTextFieldFocused: Bool
     
@@ -76,37 +77,38 @@ struct TranslationSheet: View {
                 }
                 .padding()
                 
-                // Show phonetic transcription if available
-                if !recording.phoneticTranscription.isEmpty {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Image(systemName: "textformat.abc")
-                                .foregroundColor(.blue)
-                            Text("音译")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                            Spacer()
-                        }
-                        
-                        Text(recording.phoneticTranscription)
-                            .font(.subheadline)
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color.blue.opacity(0.1))
+                // Phonetic transcription input
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "textformat.abc")
                             .foregroundColor(.blue)
-                            .cornerRadius(8)
+                        Text("音译 (选填)")
+                            .font(.headline)
+                        Spacer()
                     }
-                    .padding()
+                    
+                    TextEditor(text: $phoneticText)
+                        .padding(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
+                        .frame(minHeight: 80)
+                    
+                    Text("请输入方言的音译，如：来孛/别相")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
+                .padding()
                 
                 Spacer()
                 
                 Button(action: {
                     var updatedRecording = recording
                     updatedRecording.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                    updatedRecording.phoneticTranscription = phoneticText.trimmingCharacters(in: .whitespacesAndNewlines)
                     recordingManager.updateRecording(updatedRecording)
                     
-                    // For now, upload directly. Later we can add phonetic option here
                     let fileURL = recordingManager.getFileURL(for: updatedRecording)
                     uploadManager.uploadRecording(updatedRecording, fileURL: fileURL, recordingManager: recordingManager)
                     
@@ -138,6 +140,7 @@ struct TranslationSheet: View {
         }
         .onAppear {
             text = recording.text
+            phoneticText = recording.phoneticTranscription
             characterCount = text.count
             isTextFieldFocused = true
         }

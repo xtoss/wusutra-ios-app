@@ -20,7 +20,9 @@ struct LeaderboardView: View {
     }
     
     private var approvedRecordings: [RecordingItem] {
-        recordingManager.recordings.filter { $0.status == .approved }
+        recordingManager.recordings.filter { 
+            $0.status == .approved || $0.status == .uploaded 
+        }
     }
     
     private var filteredRecordings: [RecordingItem] {
@@ -152,7 +154,7 @@ struct LeaderboardView: View {
                             .font(.headline)
                             .foregroundColor(.secondary)
                         
-                        Text("等待更多已审核的录音贡献")
+                        Text("等待更多录音贡献")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
