@@ -83,12 +83,7 @@ class RecordingManager: NSObject, ObservableObject {
         isRecording = false
         stopTimer()
         
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-        } catch {
-            print("Failed to deactivate session: \(error)")
-        }
-        
+        // Create recording object immediately
         let recording = RecordingItem(
             id: UUID().uuidString,
             filename: url.lastPathComponent,
@@ -100,9 +95,24 @@ class RecordingManager: NSObject, ObservableObject {
             userId: getUserId()
         )
         
+        // Add to recordings array immediately for UI update
         recordings.insert(recording, at: 0)
-        saveRecordings()
+        
+        // Return immediately to show UI
         completion(recording)
+        
+        // Perform cleanup operations asynchronously
+        Task {
+            // Save recordings in background
+            await saveRecordingsAsync()
+            
+            // Deactivate audio session in background
+            do {
+                try AVAudioSession.sharedInstance().setActive(false)
+            } catch {
+                print("Failed to deactivate session: \(error)")
+            }
+        }
     }
     
     func updateRecording(_ recording: RecordingItem) {
@@ -157,6 +167,22 @@ class RecordingManager: NSObject, ObservableObject {
         let metadataURL = documentsPath.appendingPathComponent(metadataFileName)
         guard let encoded = try? JSONEncoder().encode(recordings) else { return }
         try? encoded.write(to: metadataURL)
+    }
+    
+    private func saveRecordingsAsync() async {
+        await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self = self else {
+                    continuation.resume()
+                    return
+                }
+                let metadataURL = self.documentsPath.appendingPathComponent(self.metadataFileName)
+                if let encoded = try? JSONEncoder().encode(self.recordings) {
+                    try? encoded.write(to: metadataURL)
+                }
+                continuation.resume()
+            }
+        }
     }
     
     private func getUserId() -> String {
