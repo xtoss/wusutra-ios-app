@@ -240,13 +240,28 @@ struct StatusPill: View {
         switch status {
         case .pending: return .orange
         case .uploading: return .blue
-        case .uploaded: return .green
+        case .uploaded: return .yellow
         case .failed: return .red
+        case .auditing: return .purple
+        case .approved: return .green
+        case .rejected: return .red
+        }
+    }
+    
+    var displayText: String {
+        switch status {
+        case .pending: return "待上传"
+        case .uploading: return "上传中"
+        case .uploaded: return "待审核"
+        case .failed: return "上传失败"
+        case .auditing: return "审核中"
+        case .approved: return "已通过"
+        case .rejected: return "已拒绝"
         }
     }
     
     var body: some View {
-        Text(status.rawValue)
+        Text(displayText)
             .font(.caption)
             .fontWeight(.medium)
             .padding(.horizontal, 8)

@@ -96,7 +96,8 @@ class RecordingManager: NSObject, ObservableObject {
             createdAt: Date(),
             text: "",
             dialect: selectedDialect,
-            status: .pending
+            status: .pending,
+            userId: getUserId()
         )
         
         recordings.insert(recording, at: 0)
@@ -156,5 +157,17 @@ class RecordingManager: NSObject, ObservableObject {
         let metadataURL = documentsPath.appendingPathComponent(metadataFileName)
         guard let encoded = try? JSONEncoder().encode(recordings) else { return }
         try? encoded.write(to: metadataURL)
+    }
+    
+    private func getUserId() -> String {
+        // Check if we have a stored user ID
+        if let storedId = UserDefaults.standard.string(forKey: "wusutra_user_id") {
+            return storedId
+        }
+        
+        // Generate a new user ID if none exists
+        let newId = "user_\(UUID().uuidString.prefix(8))"
+        UserDefaults.standard.set(newId, forKey: "wusutra_user_id")
+        return newId
     }
 }

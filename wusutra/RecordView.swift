@@ -7,8 +7,9 @@ struct RecordView: View {
     @State private var currentRecording: RecordingItem?
     @State private var showingSettings = false
     @State private var showingAbout = false
-    @State private var selectedDialect = ""
+    @State private var selectedDialect = "wu"
     @State private var currentStep = 1
+    @StateObject private var promptsService = PromptsService.shared
     
     var body: some View {
         NavigationView {
@@ -101,9 +102,6 @@ struct RecordView: View {
                                             Button(dialect.name) {
                                                 selectedDialect = dialect.code
                                                 recordingManager.selectedDialect = dialect.code
-                                                if currentStep == 1 {
-                                                    currentStep = 2
-                                                }
                                             }
                                         }
                                     } label: {
@@ -140,6 +138,70 @@ struct RecordView: View {
                             .cornerRadius(12)
                             .shadow(radius: 2)
                             
+                            // Prompts section (shown after dialect selection)
+                            if !selectedDialect.isEmpty {
+                                VStack(alignment: .leading, spacing: 12) {
+                                    HStack {
+                                        Image(systemName: "lightbulb.fill")
+                                            .foregroundColor(.yellow)
+                                        Text("录音建议")
+                                            .font(.title3)
+                                            .fontWeight(.semibold)
+                                        Spacer()
+                                    }
+                                    
+                                    if promptsService.isLoading {
+                                        HStack {
+                                            ProgressView()
+                                                .scaleEffect(0.8)
+                                            Text("加载录音建议...")
+                                                .font(.subheadline)
+                                                .foregroundColor(.secondary)
+                                        }
+                                        .padding(.vertical)
+                                    } else if !promptsService.prompts.isEmpty {
+                                        VStack(alignment: .leading, spacing: 8) {
+                                            Text("选择一个句子开始录音：")
+                                                .font(.subheadline)
+                                                .foregroundColor(.secondary)
+                                            
+                                            LazyVGrid(columns: [
+                                                GridItem(.flexible()),
+                                                GridItem(.flexible())
+                                            ], spacing: 12) {
+                                                ForEach(promptsService.prompts.prefix(6)) { prompt in
+                                                    Button(action: {
+                                                        // Scroll to recording section and highlight it
+                                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                                            currentStep = 2
+                                                        }
+                                                    }) {
+                                                        Text(prompt.text)
+                                                            .font(.subheadline)
+                                                            .multilineTextAlignment(.leading)
+                                                            .lineLimit(3)
+                                                            .padding()
+                                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                                            .background(Color.blue.opacity(0.1))
+                                                            .foregroundColor(.blue)
+                                                            .cornerRadius(10)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Text("暂无录音建议，请直接开始录音")
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                            .padding(.vertical)
+                                    }
+                                }
+                                .padding()
+                                .background(Color.yellow.opacity(0.05))
+                                .cornerRadius(12)
+                                .shadow(radius: 1)
+                            }
+                            
                             // Step 2: Recording
                             VStack(alignment: .leading, spacing: 12) {
                                 HStack {
@@ -148,7 +210,7 @@ struct RecordView: View {
                                         .fontWeight(.bold)
                                         .foregroundColor(.white)
                                         .frame(width: 36, height: 36)
-                                        .background(Circle().fill(currentStep >= 2 && !selectedDialect.isEmpty ? Color.orange : Color.gray))
+                                        .background(Circle().fill(Color.orange))
                                     
                                     Text("录制语音")
                                         .font(.title3)
@@ -169,11 +231,6 @@ struct RecordView: View {
                                     }
                                     
                                     Button(action: {
-                                        if selectedDialect.isEmpty {
-                                            // Show alert or highlight dialect selection
-                                            return
-                                        }
-                                        
                                         if recordingManager.isRecording {
                                             recordingManager.stopRecording { recording in
                                                 if let recording = recording {
@@ -188,8 +245,7 @@ struct RecordView: View {
                                     }) {
                                         ZStack {
                                             Circle()
-                                                .fill(recordingManager.isRecording ? Color.red : 
-                                                      (selectedDialect.isEmpty ? Color.gray : Color.orange))
+                                                .fill(recordingManager.isRecording ? Color.red : Color.orange)
                                                 .frame(width: 100, height: 100)
                                             
                                             Image(systemName: recordingManager.isRecording ? "stop.fill" : "mic.fill")
@@ -197,20 +253,13 @@ struct RecordView: View {
                                                 .foregroundColor(.white)
                                         }
                                     }
-                                    .disabled(!recordingManager.hasPermission || selectedDialect.isEmpty)
-                                    
-                                    if selectedDialect.isEmpty {
-                                        Text("请先选择方言")
-                                            .font(.caption)
-                                            .foregroundColor(.orange)
-                                    }
+                                    .disabled(!recordingManager.hasPermission)
                                 }
                             }
                             .padding()
                             .background(Color.white)
                             .cornerRadius(12)
                             .shadow(radius: 2)
-                            .opacity(selectedDialect.isEmpty ? 0.6 : 1.0)
                             
                             // Step 3: Text Input (shown as placeholder)
                             VStack(alignment: .leading, spacing: 12) {
@@ -282,6 +331,9 @@ struct RecordView: View {
         .sheet(isPresented: $showingAbout) {
             AboutView()
         }
+        .onAppear {
+            recordingManager.selectedDialect = selectedDialect
+        }
     }
     
     private func formatTime(_ time: TimeInterval) -> String {
@@ -290,4 +342,5 @@ struct RecordView: View {
         let tenths = Int((time * 10).truncatingRemainder(dividingBy: 10))
         return String(format: "%d:%02d.%d", minutes, seconds, tenths)
     }
+    
 }

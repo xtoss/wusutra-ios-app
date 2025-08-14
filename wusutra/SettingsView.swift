@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("API_BASE_URL") private var apiBaseURL = "https://example.com"
+    @AppStorage("API_BASE_URL") private var apiBaseURL = "https://1706889cb535.ngrok-free.app"
     @Environment(\.dismiss) private var dismiss
     @State private var tempURL = ""
     
@@ -13,7 +13,7 @@ struct SettingsView: View {
                         Text("API Base URL")
                             .font(.headline)
                         
-                        TextField("https://example.com", text: $tempURL)
+                        TextField("https://1706889cb535.ngrok-free.app", text: $tempURL)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .autocapitalization(.none)
                             .disableAutocorrection(true)

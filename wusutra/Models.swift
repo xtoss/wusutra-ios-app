@@ -5,6 +5,9 @@ enum UploadStatus: String, Codable {
     case uploading = "Uploading"
     case uploaded = "Uploaded"
     case failed = "Failed"
+    case auditing = "Auditing"
+    case approved = "Approved"
+    case rejected = "Rejected"
 }
 
 struct RecordingItem: Identifiable, Codable {
@@ -17,6 +20,10 @@ struct RecordingItem: Identifiable, Codable {
     var status: UploadStatus
     var uploadAttempts: Int = 0
     var lastError: String?
+    var userId: String = "anonymous"
+    var auditedBy: String?
+    var auditDate: Date?
+    var auditNotes: String?
     
     var formattedDuration: String {
         let minutes = Int(duration) / 60
@@ -54,4 +61,26 @@ struct Dialect {
         Dialect(code: "mandarin", name: "普通话"),
         Dialect(code: "other", name: "其他方言")
     ]
+}
+
+struct LeaderboardEntry: Identifiable {
+    let id = UUID()
+    let userId: String
+    let username: String
+    let avatar: String?
+    let totalRecordings: Int
+    let totalDuration: TimeInterval
+    let dialectCounts: [String: Int]
+    let rank: Int
+}
+
+struct User: Codable {
+    let id: String
+    var username: String
+    var isAdmin: Bool = false
+    var totalContributions: Int = 0
+    var joinDate: Date = Date()
+    
+    static let currentUser = User(id: "user123", username: "用户123", isAdmin: false)
+    static let adminUser = User(id: "admin", username: "管理员", isAdmin: true)
 }

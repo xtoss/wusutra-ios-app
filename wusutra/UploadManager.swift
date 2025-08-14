@@ -12,8 +12,12 @@ class UploadManager: ObservableObject {
     
     func uploadRecording(_ recording: RecordingItem, fileURL: URL, recordingManager: RecordingManager) {
         guard !recording.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            print("⚠️ Cannot upload recording without text: \(recording.filename)")
             return
         }
+        
+        print("🚀 Starting upload for: \(recording.filename)")
+        print("   API Base URL: \(apiBaseURL)")
         
         var updatedRecording = recording
         updatedRecording.status = .uploading
@@ -41,19 +45,15 @@ class UploadManager: ObservableObject {
                     self?.removeFromQueue(recording.id)
                     
                 case .failure(let error):
-                    if attempt < self?.maxRetries ?? 0 {
-                        let delay = self?.baseDelay ?? 1.0 * pow(2.0, Double(attempt - 1))
-                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                            self?.performUpload(recording: recording, fileURL: fileURL, recordingManager: recordingManager, attempt: attempt + 1)
-                        }
-                    } else {
-                        var updatedRecording = recording
-                        updatedRecording.status = .failed
-                        updatedRecording.uploadAttempts = attempt
-                        updatedRecording.lastError = error.localizedDescription
-                        recordingManager.updateRecording(updatedRecording)
-                        self?.removeFromQueue(recording.id)
-                    }
+                    print("❌ Upload failed for \(recording.filename): \(error.localizedDescription)")
+                    print("❌ No retry - debugging mode")
+                    
+                    var updatedRecording = recording
+                    updatedRecording.status = .failed
+                    updatedRecording.uploadAttempts = attempt
+                    updatedRecording.lastError = error.localizedDescription
+                    recordingManager.updateRecording(updatedRecording)
+                    self?.removeFromQueue(recording.id)
                 }
             }
         }
