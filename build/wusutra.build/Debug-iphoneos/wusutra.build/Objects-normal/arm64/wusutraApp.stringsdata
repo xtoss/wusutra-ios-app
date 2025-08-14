@@ -1,0 +1,56 @@
+{
+  "source": "/Users/jxu/Code Public/wusutra/wusutra/wusutraApp.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "主页",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "录音",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "录音库",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "排行榜",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 37
+        }
+      },
+      {
+        "comment": "",
+        "key": "方言地图",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "审核",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 47
+        }
+      }
+    ]
+  },
+  "version": 1
+}

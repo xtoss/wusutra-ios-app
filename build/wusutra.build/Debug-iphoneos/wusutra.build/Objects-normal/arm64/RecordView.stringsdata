@@ -1,0 +1,224 @@
+{
+  "source": "/Users/jxu/Code Public/wusutra/wusutra/RecordView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "方言数据贡献",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Microphone Access Required",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Please enable microphone access in Settings to record audio.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Settings",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "您的任务：帮助训练方言AI模型",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "1. 选择方言",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "2. 录制语音",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 60
+        }
+      },
+      {
+        "comment": "",
+        "key": "3. 输入文字",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "4. 音译(选填)",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "1",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "选择方言",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 160
+        }
+      },
+      {
+        "comment": "",
+        "key": "录音建议",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 203
+        }
+      },
+      {
+        "comment": "",
+        "key": "——%@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 232
+        }
+      },
+      {
+        "comment": "",
+        "key": "2",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 262
+        }
+      },
+      {
+        "comment": "",
+        "key": "录制语音",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 269
+        }
+      },
+      {
+        "comment": "",
+        "key": "3",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 330
+        }
+      },
+      {
+        "comment": "",
+        "key": "输入正确文字",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 337
+        }
+      },
+      {
+        "comment": "",
+        "key": "请先完成录音",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 365
+        }
+      },
+      {
+        "comment": "",
+        "key": "已预填文字",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 356
+        }
+      },
+      {
+        "comment": "",
+        "key": "4",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 384
+        }
+      },
+      {
+        "comment": "",
+        "key": "音译 (选填)",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 391
+        }
+      },
+      {
+        "comment": "",
+        "key": "选填",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 402
+        }
+      },
+      {
+        "comment": "",
+        "key": "已预填音译",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 419
+        }
+      },
+      {
+        "comment": "",
+        "key": "添加方言音译",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 429
+        }
+      },
+      {
+        "comment": "",
+        "key": "如：来孛/别相 → 来玩",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 432
+        }
+      }
+    ]
+  },
+  "version": 1
+}

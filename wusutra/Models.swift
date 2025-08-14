@@ -17,6 +17,7 @@ struct RecordingItem: Identifiable, Codable {
     let createdAt: Date
     var text: String
     var dialect: String
+    var phoneticTranscription: String = "" // 音译
     var status: UploadStatus
     var uploadAttempts: Int = 0
     var lastError: String?
@@ -50,16 +51,8 @@ struct Dialect {
     let name: String
     
     static let allDialects = [
-        Dialect(code: "jianghuai", name: "江淮话"),
-        Dialect(code: "wu", name: "吴语"),
-        Dialect(code: "cantonese", name: "粤语"),
-        Dialect(code: "minnan", name: "闽南语"),
-        Dialect(code: "hakka", name: "客家话"),
-        Dialect(code: "xiang", name: "湘语"),
-        Dialect(code: "gan", name: "赣语"),
-        Dialect(code: "jin", name: "晋语"),
-        Dialect(code: "mandarin", name: "普通话"),
-        Dialect(code: "other", name: "其他方言")
+        Dialect(code: "jiangyin", name: "江阴话"),
+        Dialect(code: "mandarin", name: "普通话")
     ]
 }
 

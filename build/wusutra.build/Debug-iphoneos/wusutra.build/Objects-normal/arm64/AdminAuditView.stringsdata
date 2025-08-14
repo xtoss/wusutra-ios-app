@@ -1,0 +1,136 @@
+{
+  "source": "/Users/jxu/Code Public/wusutra/wusutra/AdminAuditView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "审核管理",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "审核管理",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 171
+        }
+      },
+      {
+        "comment": "",
+        "key": "访问被拒绝",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "您没有管理员权限，无法访问审核功能。",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "审核方言录音质量，确保数据准确性",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "录音审核管理",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 122
+        }
+      },
+      {
+        "comment": "",
+        "key": "暂无待审核录音",
+        "location": {
+          "startingColumn": 63,
+          "startingLine": 149
+        }
+      },
+      {
+        "comment": "",
+        "key": "暂无%@录音",
+        "location": {
+          "startingColumn": 89,
+          "startingLine": 149
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 200
+        }
+      },
+      {
+        "comment": "",
+        "key": "0:00 / %@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 303
+        }
+      },
+      {
+        "comment": "",
+        "key": "文字内容：",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 313
+        }
+      },
+      {
+        "comment": "",
+        "key": "审核信息：",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 329
+        }
+      },
+      {
+        "comment": "",
+        "key": "备注: %@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 342
+        }
+      },
+      {
+        "comment": "",
+        "key": "审核员: %@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 334
+        }
+      },
+      {
+        "comment": "",
+        "key": "开始审核",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 356
+        }
+      }
+    ]
+  },
+  "version": 1
+}

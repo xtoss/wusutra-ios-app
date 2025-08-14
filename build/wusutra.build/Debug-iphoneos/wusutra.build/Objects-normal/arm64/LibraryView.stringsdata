@@ -1,0 +1,104 @@
+{
+  "source": "/Users/jxu/Code Public/wusutra/wusutra/LibraryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "删除录音？",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "录音库",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 47
+        }
+      },
+      {
+        "comment": "",
+        "key": "还没有录音",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "您的录音将在这里显示",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "取消",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "删除",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "这将永久删除录音文件和对应的文字内容。",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "0:00 / %@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 162
+        }
+      },
+      {
+        "comment": "",
+        "key": "添加文字",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "上传",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 203
+        }
+      },
+      {
+        "comment": "",
+        "key": "编辑",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 209
+        }
+      },
+      {
+        "comment": "",
+        "key": "删除",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 219
+        }
+      }
+    ]
+  },
+  "version": 1
+}

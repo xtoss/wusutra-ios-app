@@ -1,0 +1,208 @@
+{
+  "" : {
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutra-master.dia",
+    "emit-module-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutra-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutra-master-emit-module.dia",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutra-master.swiftdeps"
+  },
+  "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/AboutView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AboutView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/AdminAuditView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AdminAuditView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/AudioPlayer.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AudioPlayer~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/AuditDetailSheet.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/AuditDetailSheet~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/DialectMapView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/DialectMapView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/EditTextSheet.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/EditTextSheet~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/HomeView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/HomeView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/LeaderboardView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LeaderboardView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/LibraryView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/LibraryView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/Models.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/Models~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/NetworkingClient.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/NetworkingClient~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/PhoneticSheet.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PhoneticSheet~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/PromptsService.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/PromptsService~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/RecordView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/RecordingManager.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/RecordingManager~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/SettingsView.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/SettingsView~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/TranslationSheet.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/TranslationSheet~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/UploadManager.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/UploadManager~partial.swiftmodule"
+  },
+  "/Users/jxu/Code Public/wusutra/wusutra/wusutraApp.swift" : {
+    "const-values" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp.swiftconstvalues",
+    "dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp.d",
+    "diagnostics" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp.dia",
+    "index-unit-output-path" : "/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp.o",
+    "llvm-bc" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp.bc",
+    "object" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp.o",
+    "swift-dependencies" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp.swiftdeps",
+    "swiftmodule" : "/Users/jxu/Code Public/wusutra/build/wusutra.build/Debug-iphoneos/wusutra.build/Objects-normal/arm64/wusutraApp~partial.swiftmodule"
+  }
+}

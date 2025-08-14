@@ -76,6 +76,29 @@ struct TranslationSheet: View {
                 }
                 .padding()
                 
+                // Show phonetic transcription if available
+                if !recording.phoneticTranscription.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Image(systemName: "textformat.abc")
+                                .foregroundColor(.blue)
+                            Text("音译")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                            Spacer()
+                        }
+                        
+                        Text(recording.phoneticTranscription)
+                            .font(.subheadline)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.blue.opacity(0.1))
+                            .foregroundColor(.blue)
+                            .cornerRadius(8)
+                    }
+                    .padding()
+                }
+                
                 Spacer()
                 
                 Button(action: {
@@ -83,6 +106,7 @@ struct TranslationSheet: View {
                     updatedRecording.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
                     recordingManager.updateRecording(updatedRecording)
                     
+                    // For now, upload directly. Later we can add phonetic option here
                     let fileURL = recordingManager.getFileURL(for: updatedRecording)
                     uploadManager.uploadRecording(updatedRecording, fileURL: fileURL, recordingManager: recordingManager)
                     
@@ -113,6 +137,8 @@ struct TranslationSheet: View {
             }
         }
         .onAppear {
+            text = recording.text
+            characterCount = text.count
             isTextFieldFocused = true
         }
     }

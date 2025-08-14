@@ -1,0 +1,176 @@
+{
+  "source": "/Users/jxu/Code Public/wusutra/wusutra/HomeView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "主页",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 235
+        }
+      },
+      {
+        "comment": "",
+        "key": "还需录制 %lld 条语音完成今日目标",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "今日进度",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "0/%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "完成度",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "0%",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 65
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 85
+        }
+      },
+      {
+        "comment": "",
+        "key": "连续天数",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 80
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "总积分",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 96
+        }
+      },
+      {
+        "comment": "",
+        "key": "最近录音",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 129
+        }
+      },
+      {
+        "comment": "",
+        "key": "管理视图",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "暂无录音",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 142
+        }
+      },
+      {
+        "comment": "",
+        "key": "成就徽章 (9)",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 172
+        }
+      },
+      {
+        "comment": "",
+        "key": "暂无数据",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 202
+        }
+      },
+      {
+        "comment": "",
+        "key": "方言统计",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "总计录音",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 213
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld 条",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 217
+        }
+      },
+      {
+        "comment": "",
+        "key": "已解锁",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 352
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 360
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld 条",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 388
+        }
+      }
+    ]
+  },
+  "version": 1
+}

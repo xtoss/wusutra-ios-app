@@ -75,10 +75,15 @@ class NetworkingClient {
         body.append("\(recording.userId)\r\n".data(using: .utf8)!)
         
         // Add other fields
-        let fields = [
+        var fields = [
             "duration_sec": String(recording.duration),
             "quality_score": "5" // Default to 5 for now
         ]
+        
+        // Add phonetic transcription if provided
+        if !recording.phoneticTranscription.isEmpty {
+            fields["transliteration"] = recording.phoneticTranscription
+        }
         
         for (key, value) in fields {
             print("  ➕ Adding \(key): \(value)")
