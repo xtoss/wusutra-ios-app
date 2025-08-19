@@ -200,7 +200,7 @@ struct RecordingRow: View {
                             let fileURL = recordingManager.getFileURL(for: recording)
                             uploadManager.retryUpload(recording, recordingManager: recordingManager)
                         }) {
-                            Label("上传", systemImage: "arrow.up.circle")
+                            Label(recording.status == .failed ? "重新上传" : "上传", systemImage: "arrow.up.circle")
                                 .font(.caption)
                         }
                         .buttonStyle(.borderedProminent)

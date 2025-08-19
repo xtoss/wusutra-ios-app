@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct TranslationSheet: View {
     let recording: RecordingItem
@@ -17,7 +18,8 @@ struct TranslationSheet: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
+            ScrollView {
+                VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("录音详情")
                         .font(.headline)
@@ -101,8 +103,7 @@ struct TranslationSheet: View {
                 }
                 .padding()
                 
-                Spacer()
-                
+                // Submit button - always visible at bottom
                 Button(action: {
                     var updatedRecording = recording
                     updatedRecording.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -126,10 +127,13 @@ struct TranslationSheet: View {
                 }
                 .disabled(!isValid)
                 .padding(.horizontal)
-                .padding(.bottom)
+                .padding(.bottom, 30) // Extra bottom padding for keyboard
+                }
+                .padding(.bottom) // Extra padding for ScrollView
             }
             .navigationTitle("第3步：输入正确文字")
             .navigationBarTitleDisplayMode(.inline)
+            .keyboardAdaptive()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("取消") {
@@ -144,5 +148,39 @@ struct TranslationSheet: View {
             characterCount = text.count
             isTextFieldFocused = true
         }
+    }
+}
+
+// Keyboard adaptive modifier
+extension View {
+    func keyboardAdaptive() -> some View {
+        ModifiedContent(content: self, modifier: KeyboardAdaptive())
+    }
+}
+
+struct KeyboardAdaptive: ViewModifier {
+    @State private var keyboardHeight: CGFloat = 0
+
+    func body(content: Content) -> some View {
+        content
+            .padding(.bottom, keyboardHeight)
+            .onReceive(Publishers.keyboardHeight) { keyboardHeight in
+                self.keyboardHeight = keyboardHeight
+            }
+    }
+}
+
+extension Publishers {
+    static var keyboardHeight: AnyPublisher<CGFloat, Never> {
+        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
+            .map { notification in
+                (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
+            }
+        
+        let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)
+            .map { _ in CGFloat(0) }
+        
+        return MergeMany(willShow, willHide)
+            .eraseToAnyPublisher()
     }
 }

@@ -13,7 +13,7 @@ struct MainView: View {
     @StateObject private var recordingManager = RecordingManager()
     @StateObject private var uploadManager = UploadManager()
     @StateObject private var promptsService = PromptsService.shared
-    @AppStorage("API_BASE_URL") private var apiBaseURL = "https://1706889cb535.ngrok-free.app"
+    @AppStorage("API_BASE_URL") private var apiBaseURL = "https://9848be0d46d7.ngrok-free.app"
     
     var body: some View {
         TabView {
