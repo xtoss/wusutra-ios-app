@@ -37,6 +37,11 @@ struct MainView: View {
                     Label("方言地图", systemImage: "map.fill")
                 }
             
+            TrainingView()
+                .tabItem {
+                    Label("训练中心", systemImage: "cpu")
+                }
+            
             AdminAuditView(recordingManager: recordingManager)
                 .tabItem {
                     Label("审核", systemImage: "checkmark.shield.fill")
