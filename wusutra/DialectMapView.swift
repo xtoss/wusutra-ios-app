@@ -4,8 +4,8 @@ import MapKit
 struct DialectMapView: View {
     @ObservedObject var recordingManager: RecordingManager
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 35.0, longitude: 105.0), // Center of China
-        span: MKCoordinateSpan(latitudeDelta: 20.0, longitudeDelta: 20.0)
+        center: CLLocationCoordinate2D(latitude: 31.5, longitude: 120.0), // Focus on Eastern China
+        span: MKCoordinateSpan(latitudeDelta: 15.0, longitudeDelta: 15.0)
     )
     @State private var selectedDialect: String?
     
@@ -31,64 +31,43 @@ struct DialectMapView: View {
         NavigationView {
             VStack(spacing: 0) {
                 // Header
-                VStack(spacing: 12) {
+                VStack(alignment: .center, spacing: 8) {
                     HStack {
-                        Image(systemName: "map.fill")
-                            .foregroundColor(.blue)
-                        Text("方言地图")
+                        Image(systemName: "map")
                             .font(.title2)
+                        Text("方言地图")
+                            .font(.title)
                             .fontWeight(.bold)
                     }
                     
                     Text("探索全国各地的方言分布和贡献热度")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
-                    
-                    HStack(spacing: 30) {
-                        VStack {
-                            Text("\(dialectRegions)")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.orange)
-                            Text("个地区")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        VStack {
-                            Text("\(totalRecordings)")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.green)
-                            Text("条录音")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    }
                 }
                 .padding()
-                .background(Color.blue.opacity(0.05))
+                .frame(maxWidth: .infinity)
+                .background(Color(UIColor.systemBackground))
                 
                 // Map Container
                 VStack(alignment: .leading, spacing: 12) {
                     HStack {
-                        Image(systemName: "globe.asia.australia")
-                            .foregroundColor(.orange)
+                        Image(systemName: "location.circle")
                         Text("方言贡献地图")
                             .font(.headline)
                         
                         Spacer()
                         
-                        HStack(spacing: 16) {
-                            Text("\(dialectRegions)个地区")
+                        HStack(spacing: 20) {
+                            Label("\(dialectRegions)个地区", systemImage: "mappin")
                                 .font(.caption)
                                 .foregroundColor(.orange)
                             
-                            Text("\(totalRecordings)条录音")
+                            Label("\(totalRecordings)条录音", systemImage: "waveform")
                                 .font(.caption)
                                 .foregroundColor(.green)
                         }
                     }
+                    .padding(.horizontal)
                     
                     // Interactive Map
                     ZStack {
@@ -100,11 +79,13 @@ struct DialectMapView: View {
                                     isSelected: selectedDialect == annotation.dialect.code
                                 )
                                 .onTapGesture {
-                                    selectedDialect = annotation.dialect.code
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        selectedDialect = selectedDialect == annotation.dialect.code ? nil : annotation.dialect.code
+                                    }
                                 }
                             }
                         }
-                        .frame(height: 300)
+                        .frame(height: 400)
                         .cornerRadius(12)
                         
                         // Map controls
@@ -143,28 +124,36 @@ struct DialectMapView: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                         
-                        HStack(spacing: 12) {
+                        HStack(spacing: 16) {
                             HStack(spacing: 4) {
                                 Circle()
-                                    .fill(Color.green)
-                                    .frame(width: 8, height: 8)
-                                Text("1-5条")
-                                    .font(.caption2)
-                            }
-                            
-                            HStack(spacing: 4) {
-                                Circle()
-                                    .fill(Color.orange)
+                                    .fill(Color(red: 1.0, green: 0.95, blue: 0.5))
                                     .frame(width: 10, height: 10)
-                                Text("6-20条")
+                                Text("少于10条")
                                     .font(.caption2)
                             }
                             
                             HStack(spacing: 4) {
                                 Circle()
-                                    .fill(Color.red)
-                                    .frame(width: 12, height: 12)
-                                Text("20+条")
+                                    .fill(Color(red: 1.0, green: 0.85, blue: 0.0))
+                                    .frame(width: 14, height: 14)
+                                Text("10-20条")
+                                    .font(.caption2)
+                            }
+                            
+                            HStack(spacing: 4) {
+                                Circle()
+                                    .fill(Color(red: 1.0, green: 0.7, blue: 0.0))
+                                    .frame(width: 18, height: 18)
+                                Text("20-50条")
+                                    .font(.caption2)
+                            }
+                            
+                            HStack(spacing: 4) {
+                                Circle()
+                                    .fill(Color(red: 1.0, green: 0.5, blue: 0.0))
+                                    .frame(width: 22, height: 22)
+                                Text("50+条")
                                     .font(.caption2)
                             }
                         }
@@ -259,20 +248,28 @@ struct DialectMapPin: View {
     let isSelected: Bool
     
     private var pinColor: Color {
-        if count >= 20 { return .red }
-        else if count >= 6 { return .orange }
-        else { return .green }
+        if count >= 50 { return Color(red: 1.0, green: 0.5, blue: 0.0) } // Deep orange
+        else if count >= 20 { return Color(red: 1.0, green: 0.7, blue: 0.0) } // Orange
+        else if count >= 10 { return Color(red: 1.0, green: 0.85, blue: 0.0) } // Yellow-orange
+        else { return Color(red: 1.0, green: 0.95, blue: 0.5) } // Light yellow
     }
     
     private var pinSize: CGFloat {
-        if count >= 20 { return 24 }
-        else if count >= 6 { return 20 }
-        else { return 16 }
+        // Dynamic sizing based on count with logarithmic scale for better visualization
+        let baseSize: CGFloat = 20
+        let scaleFactor = log(Double(max(count, 1))) / log(10.0)
+        return baseSize + (scaleFactor * 15)
     }
     
     var body: some View {
         VStack(spacing: 4) {
             ZStack {
+                // Outer circle with slight transparency for depth
+                Circle()
+                    .fill(pinColor.opacity(0.3))
+                    .frame(width: pinSize + 8, height: pinSize + 8)
+                
+                // Main circle
                 Circle()
                     .fill(pinColor)
                     .frame(width: pinSize, height: pinSize)
@@ -280,23 +277,24 @@ struct DialectMapPin: View {
                 if isSelected {
                     Circle()
                         .stroke(Color.blue, lineWidth: 3)
-                        .frame(width: pinSize + 6, height: pinSize + 6)
+                        .frame(width: pinSize + 12, height: pinSize + 12)
                 }
-                
-                Text("\(count)")
-                    .font(.caption2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
             }
             
             if isSelected {
-                Text(dialect.name)
-                    .font(.caption2)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(Color.white)
-                    .cornerRadius(4)
-                    .shadow(radius: 1)
+                VStack(spacing: 2) {
+                    Text(dialect.name)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                    Text("\(count) 条录音")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.white)
+                .cornerRadius(6)
+                .shadow(radius: 2)
             }
         }
     }

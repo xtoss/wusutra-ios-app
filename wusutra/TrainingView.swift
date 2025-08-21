@@ -10,7 +10,8 @@ struct TrainingView: View {
                 Color(UIColor.systemGroupedBackground)
                     .ignoresSafeArea()
                 
-                VStack(spacing: 30) {
+                ScrollView {
+                    VStack(spacing: 30) {
                     // Robot Icon
                     Image(systemName: "cpu")
                         .font(.system(size: 80))
@@ -139,8 +140,10 @@ struct TrainingView: View {
                     .cornerRadius(15)
                     .padding(.horizontal, 20)
                     
-                    Spacer()
+                    }
+                    .padding(.bottom, 20) // Small padding at bottom
                 }
+                .padding(.bottom, 50) // Additional padding to avoid tab bar
             }
             .navigationBarHidden(true)
         }

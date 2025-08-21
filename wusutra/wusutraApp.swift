@@ -32,14 +32,14 @@ struct MainView: View {
                     Label("排行榜", systemImage: "trophy.fill")
                 }
             
-            DialectMapView(recordingManager: recordingManager)
-                .tabItem {
-                    Label("方言地图", systemImage: "map.fill")
-                }
-            
             TrainingView()
                 .tabItem {
                     Label("训练中心", systemImage: "cpu")
+                }
+            
+            DialectMapView(recordingManager: recordingManager)
+                .tabItem {
+                    Label("方言地图", systemImage: "map.fill")
                 }
             
             AdminAuditView(recordingManager: recordingManager)
