@@ -17,11 +17,6 @@ struct MainView: View {
     
     var body: some View {
         TabView {
-            HomeView(recordingManager: recordingManager)
-                .tabItem {
-                    Label("主页", systemImage: "house.fill")
-                }
-            
             RecordView(recordingManager: recordingManager, uploadManager: uploadManager)
                 .tabItem {
                     Label("录音", systemImage: "mic.circle.fill")

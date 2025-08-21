@@ -234,19 +234,19 @@ struct RecordView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(prompt.0)
                                 .font(.caption)
-                                .fontWeight(.medium)
+                                .fontWeight(.semibold)
                                 .multilineTextAlignment(.leading)
-                                .foregroundColor(.primary)
+                                .foregroundColor(.white)
                             Text("——\(prompt.1)")
                                 .font(.caption2)
-                                .foregroundColor(.primary.opacity(0.8))
+                                .foregroundColor(.white.opacity(0.8))
                                 .multilineTextAlignment(.leading)
                         }
                         .padding(.horizontal, 8)
                         .padding(.vertical, 6)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(selectedPromptPhonetic == prompt.0 ? Color.blue.opacity(0.3) : Color.blue.opacity(0.1))
-                        .foregroundColor(.blue)
+                        .background(selectedPromptPhonetic == prompt.0 ? Color.blue.opacity(0.5) : Color.blue.opacity(0.25))
+                        .foregroundColor(.white)
                         .cornerRadius(6)
                         .overlay(
                             selectedPromptPhonetic == prompt.0 ? 
@@ -259,7 +259,7 @@ struct RecordView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color.gray.opacity(0.15))
+        .background(Color.gray.opacity(0.3))
         .cornerRadius(8)
     }
     
