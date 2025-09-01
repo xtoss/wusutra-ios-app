@@ -11,6 +11,10 @@ struct TranslationSheet: View {
     @State private var phoneticText = ""
     @State private var characterCount = 0
     @FocusState private var isTextFieldFocused: Bool
+    @State private var isLoadingTranscription = false
+    @State private var transcriptionError: String?
+    @State private var hasTranscribed = false
+    @State private var modelVersion: String?
     
     var isValid: Bool {
         !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -54,11 +58,27 @@ struct TranslationSheet: View {
                         Text("输入正确文字")
                             .font(.headline)
                         
+                        if hasTranscribed {
+                            HStack(spacing: 4) {
+                                Image(systemName: "sparkles")
+                                    .font(.caption)
+                                    .foregroundColor(.blue)
+                                Text("AI转写")
+                                    .font(.caption)
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                        
                         Spacer()
                         
-                        Text("\(characterCount) 字符")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        if isLoadingTranscription {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                        } else {
+                            Text("\(characterCount) 字符")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     
                     TextEditor(text: $text)
@@ -73,9 +93,36 @@ struct TranslationSheet: View {
                             characterCount = newValue.count
                         }
                     
-                    Text("请输入您刚才用方言说的标准文字内容")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("请输入您刚才用方言说的标准文字内容")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            getTranscription()
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "mic.fill")
+                                    .font(.caption)
+                                Text("AI转写")
+                                    .font(.caption.bold())
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(6)
+                        }
+                        .disabled(isLoadingTranscription)
+                    }
+                    
+                    if let error = transcriptionError {
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                    }
                 }
                 .padding()
                 
@@ -147,8 +194,85 @@ struct TranslationSheet: View {
             phoneticText = recording.phoneticTranscription
             characterCount = text.count
             isTextFieldFocused = true
+            
+            // Attempt to get transcription only if text is empty
+            if text.isEmpty {
+                getTranscription()
+            }
         }
     }
+    
+    private func getTranscription() {
+        isLoadingTranscription = true
+        transcriptionError = nil
+        hasTranscribed = false
+        
+        let fileURL = recordingManager.getFileURL(for: recording)
+        let apiBaseURL = UserDefaults.standard.string(forKey: "API_BASE_URL") ?? Constants.defaultAPIBaseURL
+        
+        guard !apiBaseURL.isEmpty else {
+            transcriptionError = "请先设置API服务器地址"
+            isLoadingTranscription = false
+            return
+        }
+        
+        // Create transcription request
+        guard let url = URL(string: "\(apiBaseURL)/v1/transcribe") else {
+            transcriptionError = "无效的API地址"
+            isLoadingTranscription = false
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let boundary = UUID().uuidString
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var body = Data()
+        
+        // Add audio file
+        if let audioData = try? Data(contentsOf: fileURL) {
+            body.append("--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"audio_file\"; filename=\"\(recording.filename)\"\r\n".data(using: .utf8)!)
+            body.append("Content-Type: audio/m4a\r\n\r\n".data(using: .utf8)!)
+            body.append(audioData)
+            body.append("\r\n".data(using: .utf8)!)
+        }
+        
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        request.httpBody = body
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                isLoadingTranscription = false
+                
+                if let error = error {
+                    transcriptionError = "网络错误: \(error.localizedDescription)"
+                    return
+                }
+                
+                guard let data = data,
+                      let response = try? JSONDecoder().decode(TranscriptionResponse.self, from: data) else {
+                    transcriptionError = "无法解析服务器响应"
+                    return
+                }
+                
+                // Set the transcription if we got one
+                if !response.transcription.isEmpty {
+                    text = response.transcription
+                    characterCount = text.count
+                    hasTranscribed = true
+                    modelVersion = response.model_version
+                }
+            }
+        }.resume()
+    }
+}
+
+struct TranscriptionResponse: Codable {
+    let transcription: String
+    let model_version: String
 }
 
 // Keyboard adaptive modifier
