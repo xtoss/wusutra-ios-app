@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TrainingView: View {
     @StateObject private var trainingViewModel = TrainingViewModel()
-    @AppStorage("API_BASE_URL") private var apiBaseURL = "https://9848be0d46d7.ngrok-free.app"
+    @AppStorage("API_BASE_URL") private var apiBaseURL = Constants.defaultAPIBaseURL
     
     var body: some View {
         NavigationView {
@@ -54,6 +54,33 @@ struct TrainingView: View {
                                 .font(.title2)
                             Text("全局周期训练倒计时")
                                 .font(.headline)
+                            
+                            Spacer()
+                            
+                            // Manual training button
+                            Button(action: {
+                                Task {
+                                    await trainingViewModel.triggerManualTraining()
+                                }
+                            }) {
+                                HStack(spacing: 4) {
+                                    if trainingViewModel.isTraining {
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle())
+                                            .scaleEffect(0.8)
+                                    } else {
+                                        Image(systemName: "play.circle.fill")
+                                    }
+                                    Text("手动训练")
+                                        .font(.caption)
+                                }
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(trainingViewModel.isTraining ? Color.gray : Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(15)
+                            }
+                            .disabled(trainingViewModel.isTraining)
                         }
                         .foregroundColor(.primary)
                         
@@ -151,6 +178,24 @@ struct TrainingView: View {
             trainingViewModel.apiBaseURL = apiBaseURL
             trainingViewModel.fetchTrainingStatus()
         }
+        .alert("训练结果", isPresented: $trainingViewModel.showTrainingAlert) {
+            Button("确定", role: .cancel) { }
+        } message: {
+            Text(trainingViewModel.trainingMessage ?? "未知结果")
+        }
+    }
+}
+
+// Training Response Model
+struct TrainingResponse: Codable {
+    let status: String
+    let message: String
+    let totalTrainings: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case status
+        case message
+        case totalTrainings = "total_trainings"
     }
 }
 
@@ -161,6 +206,9 @@ class TrainingViewModel: ObservableObject {
     @Published var dialectProgress: [DialectProgress] = []
     @Published var countdownTime: TimeInterval = 0
     @Published var nextTrainingDate: Date?
+    @Published var isTraining = false
+    @Published var trainingMessage: String?
+    @Published var showTrainingAlert = false
     
     var apiBaseURL = ""
     private var timer: Timer?
@@ -278,6 +326,73 @@ class TrainingViewModel: ObservableObject {
             return "\(days)天 \(remainingHours)小时 \(minutes)分钟"
         } else {
             return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        }
+    }
+    
+    func triggerManualTraining() async {
+        await MainActor.run {
+            self.isTraining = true
+        }
+        
+        guard !apiBaseURL.isEmpty else {
+            await MainActor.run {
+                self.isTraining = false
+                self.trainingMessage = "错误：API地址未配置"
+                self.showTrainingAlert = true
+            }
+            return
+        }
+        
+        let url = URL(string: "\(apiBaseURL)/v1/training/trigger")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw URLError(.badServerResponse)
+            }
+            
+            if httpResponse.statusCode == 200 {
+                let result = try JSONDecoder().decode(TrainingResponse.self, from: data)
+                await MainActor.run {
+                    self.isTraining = false
+                    self.trainingMessage = result.message
+                    self.showTrainingAlert = true
+                    // Refresh training status after successful training
+                    self.fetchTrainingStatus()
+                }
+            } else if httpResponse.statusCode == 400 {
+                // No new files to train
+                if let errorData = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let detail = errorData["detail"] as? String {
+                    await MainActor.run {
+                        self.isTraining = false
+                        self.trainingMessage = detail
+                        self.showTrainingAlert = true
+                    }
+                }
+            } else {
+                // Other errors
+                if let errorData = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let detail = errorData["detail"] as? String {
+                    await MainActor.run {
+                        self.isTraining = false
+                        self.trainingMessage = "训练失败：\(detail)"
+                        self.showTrainingAlert = true
+                    }
+                } else {
+                    throw URLError(.unknown)
+                }
+            }
+        } catch {
+            await MainActor.run {
+                self.isTraining = false
+                self.trainingMessage = "训练请求失败：\(error.localizedDescription)"
+                self.showTrainingAlert = true
+            }
         }
     }
 }
