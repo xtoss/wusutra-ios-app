@@ -41,6 +41,32 @@ struct TrainingView: View {
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .lineSpacing(5)
+                        
+                        Divider()
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Label("训练模式", systemImage: "info.circle.fill")
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                            
+                            Text("当前训练模式：从基础 Whisper 模型开始训练")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            HStack(spacing: 4) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .font(.caption)
+                                    .foregroundColor(.orange)
+                                Text("注意：手动训练只会使用未处理的新录音")
+                                    .font(.caption.bold())
+                                    .foregroundColor(.orange)
+                            }
+                            .padding(.top, 4)
+                            
+                            Text("系统会记录已训练的文件，下次训练只包含新增的录音文件。")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     .padding(20)
                     .background(Color(UIColor.secondarySystemGroupedBackground))
@@ -59,28 +85,19 @@ struct TrainingView: View {
                             
                             // Manual training button
                             Button(action: {
-                                Task {
-                                    await trainingViewModel.triggerManualTraining()
-                                }
+                                trainingViewModel.showTrainingModeSelection = true
                             }) {
                                 HStack(spacing: 4) {
-                                    if trainingViewModel.isTraining {
-                                        ProgressView()
-                                            .progressViewStyle(CircularProgressViewStyle())
-                                            .scaleEffect(0.8)
-                                    } else {
-                                        Image(systemName: "play.circle.fill")
-                                    }
+                                    Image(systemName: "play.circle.fill")
                                     Text("手动训练")
                                         .font(.caption)
                                 }
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
-                                .background(trainingViewModel.isTraining ? Color.gray : Color.blue)
+                                .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(15)
                             }
-                            .disabled(trainingViewModel.isTraining)
                         }
                         .foregroundColor(.primary)
                         
@@ -138,6 +155,17 @@ struct TrainingView: View {
                                         .foregroundColor(.secondary)
                                 }
                                 
+                                // Model info
+                                HStack {
+                                    Image(systemName: "cpu.fill")
+                                        .font(.caption2)
+                                        .foregroundColor(.blue)
+                                    Text("当前模型: \(progress.currentModel)")
+                                        .font(.caption2)
+                                        .foregroundColor(.blue)
+                                    Spacer()
+                                }
+                                
                                 GeometryReader { geometry in
                                     ZStack(alignment: .leading) {
                                         Rectangle()
@@ -183,19 +211,77 @@ struct TrainingView: View {
         } message: {
             Text(trainingViewModel.trainingMessage ?? "未知结果")
         }
+        .actionSheet(isPresented: $trainingViewModel.showTrainingModeSelection) {
+            ActionSheet(
+                title: Text("选择训练模式"),
+                message: Text("请选择您想要的训练方式"),
+                buttons: [
+                    .default(Text("增量训练 (推荐)")) {
+                        trainingViewModel.selectedTrainingMode = .incremental
+                        trainingViewModel.showManualTrainingAlert = true
+                    },
+                    .default(Text("完整训练")) {
+                        trainingViewModel.selectedTrainingMode = .full
+                        trainingViewModel.showManualTrainingAlert = true
+                    },
+                    .cancel(Text("取消"))
+                ]
+            )
+        }
+        .alert(trainingViewModel.selectedTrainingMode == .incremental ? "增量训练说明" : "完整训练说明", 
+               isPresented: $trainingViewModel.showManualTrainingAlert) {
+            Button("取消", role: .cancel) { }
+            Button("开始训练", role: .destructive) {
+                Task {
+                    await trainingViewModel.triggerManualTraining()
+                }
+            }
+        } message: {
+            if trainingViewModel.selectedTrainingMode == .incremental {
+                Text("""
+                🔄 增量训练模式
+                
+                • 只训练新增的音频文件
+                • 基于最新模型继续训练
+                • 训练时间较短，适合日常更新
+                • 保留之前的学习成果
+                
+                确定要继续吗？
+                """)
+            } else {
+                Text("""
+                🔨 完整训练模式
+                
+                • 训练所有音频文件
+                • 从基础 Whisper 模型开始训练
+                • 训练时间较长，但效果最佳
+                • 适合大量新数据或定期重训
+                
+                确定要继续吗？
+                """)
+            }
+        }
     }
+}
+
+// Training Mode
+enum TrainingMode {
+    case incremental
+    case full
 }
 
 // Training Response Model
 struct TrainingResponse: Codable {
     let status: String
     let message: String
-    let totalTrainings: Int?
+    let mode: String?
+    let note: String?
     
     enum CodingKeys: String, CodingKey {
         case status
         case message
-        case totalTrainings = "total_trainings"
+        case mode
+        case note
     }
 }
 
@@ -206,9 +292,13 @@ class TrainingViewModel: ObservableObject {
     @Published var dialectProgress: [DialectProgress] = []
     @Published var countdownTime: TimeInterval = 0
     @Published var nextTrainingDate: Date?
-    @Published var isTraining = false
     @Published var trainingMessage: String?
     @Published var showTrainingAlert = false
+    @Published var showManualTrainingAlert = false
+    @Published var pendingNewFiles = 0
+    @Published var totalFiles = 0
+    @Published var showTrainingModeSelection = false
+    @Published var selectedTrainingMode: TrainingMode?
     
     var apiBaseURL = ""
     private var timer: Timer?
@@ -216,16 +306,20 @@ class TrainingViewModel: ObservableObject {
     init() {
         // Mock data for now
         dialectProgress = [
-            DialectProgress(dialectName: "江阴话", count: 24),
-            DialectProgress(dialectName: "南京话", count: 156),
-            DialectProgress(dialectName: "合肥话", count: 89),
-            DialectProgress(dialectName: "上海话", count: 342),
-            DialectProgress(dialectName: "苏州话", count: 476)
+            DialectProgress(dialectName: "江阴话", count: 24, currentModel: "20250822-091919"),
+            DialectProgress(dialectName: "南京话", count: 156, currentModel: "20250822-091919"),
+            DialectProgress(dialectName: "合肥话", count: 89, currentModel: "20250822-091919"),
+            DialectProgress(dialectName: "上海话", count: 342, currentModel: "20250822-091919"),
+            DialectProgress(dialectName: "苏州话", count: 476, currentModel: "20250822-091919")
         ]
         
         // Set next training date (mock - 2 days from now)
         nextTrainingDate = Date().addingTimeInterval(2 * 24 * 60 * 60)
         startCountdownTimer()
+        
+        // Will be fetched from API
+        pendingNewFiles = 0
+        totalFiles = 0
     }
     
     deinit {
@@ -250,7 +344,7 @@ class TrainingViewModel: ObservableObject {
     func fetchTrainingStatus() {
         guard !apiBaseURL.isEmpty else { return }
         
-        let url = URL(string: "\(apiBaseURL)/api/training/status")!
+        let url = URL(string: "\(apiBaseURL)/v1/training/status")!
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -283,6 +377,11 @@ class TrainingViewModel: ObservableObject {
                                       let count = dict["new_recordings_count"] as? Int else { return nil }
                                 return DialectProgress(dialectName: name, count: count)
                             }
+                        }
+                        
+                        // Parse pending files for manual training
+                        if let pendingFiles = json["pending_files"] as? Int {
+                            self.pendingNewFiles = pendingFiles
                         }
                     }
                 }
@@ -330,23 +429,20 @@ class TrainingViewModel: ObservableObject {
     }
     
     func triggerManualTraining() async {
-        await MainActor.run {
-            self.isTraining = true
-        }
-        
         guard !apiBaseURL.isEmpty else {
             await MainActor.run {
-                self.isTraining = false
                 self.trainingMessage = "错误：API地址未配置"
                 self.showTrainingAlert = true
             }
             return
         }
         
-        let url = URL(string: "\(apiBaseURL)/v1/training/trigger")!
+        let mode = selectedTrainingMode == .full ? "full" : "incremental"
+        let url = URL(string: "\(apiBaseURL)/v1/training/trigger?mode=\(mode)")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.timeoutInterval = 10  // Quick timeout since we're not waiting for training completion
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -355,42 +451,58 @@ class TrainingViewModel: ObservableObject {
                 throw URLError(.badServerResponse)
             }
             
-            if httpResponse.statusCode == 200 {
-                let result = try JSONDecoder().decode(TrainingResponse.self, from: data)
-                await MainActor.run {
-                    self.isTraining = false
-                    self.trainingMessage = result.message
-                    self.showTrainingAlert = true
-                    // Refresh training status after successful training
-                    self.fetchTrainingStatus()
+            if httpResponse.statusCode == 200 || httpResponse.statusCode == 202 {
+                // Training accepted (202) or old success response (200)
+                if let responseData = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    let message = responseData["message"] as? String ?? "训练已启动"
+                    let note = responseData["note"] as? String
+                    
+                    await MainActor.run {
+                        let fullMessage = note != nil ? "\(message)\n\n\(note!)" : message
+                        self.trainingMessage = fullMessage
+                        self.showTrainingAlert = true
+                        // Refresh training status to update UI
+                        self.fetchTrainingStatus()
+                    }
+                } else {
+                    await MainActor.run {
+                        self.trainingMessage = "训练已在后台启动，请查看日志了解进度"
+                        self.showTrainingAlert = true
+                        self.fetchTrainingStatus()
+                    }
                 }
             } else if httpResponse.statusCode == 400 {
-                // No new files to train
+                // No new files to train or other validation errors
                 if let errorData = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                    let detail = errorData["detail"] as? String {
                     await MainActor.run {
-                        self.isTraining = false
                         self.trainingMessage = detail
+                        self.showTrainingAlert = true
+                    }
+                } else {
+                    await MainActor.run {
+                        self.trainingMessage = "无法启动训练：请求参数错误"
                         self.showTrainingAlert = true
                     }
                 }
             } else {
-                // Other errors
+                // Other server errors
                 if let errorData = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                    let detail = errorData["detail"] as? String {
                     await MainActor.run {
-                        self.isTraining = false
-                        self.trainingMessage = "训练失败：\(detail)"
+                        self.trainingMessage = "训练启动失败：\(detail)"
                         self.showTrainingAlert = true
                     }
                 } else {
-                    throw URLError(.unknown)
+                    await MainActor.run {
+                        self.trainingMessage = "服务器错误：HTTP \(httpResponse.statusCode)"
+                        self.showTrainingAlert = true
+                    }
                 }
             }
         } catch {
             await MainActor.run {
-                self.isTraining = false
-                self.trainingMessage = "训练请求失败：\(error.localizedDescription)"
+                self.trainingMessage = "无法连接到服务器：\(error.localizedDescription)"
                 self.showTrainingAlert = true
             }
         }
@@ -401,6 +513,13 @@ struct DialectProgress: Identifiable {
     let id = UUID()
     let dialectName: String
     let count: Int
+    let currentModel: String
+    
+    init(dialectName: String, count: Int, currentModel: String? = nil) {
+        self.dialectName = dialectName
+        self.count = count
+        self.currentModel = currentModel ?? "whisper-small-base"
+    }
     
     var canTriggerTraining: Bool {
         return count < 500

@@ -228,8 +228,14 @@ struct RecordView: View {
             ], spacing: 8) {
                 ForEach(Array(jiangYinPrompts.enumerated()), id: \.offset) { index, prompt in
                     Button(action: {
-                        selectedPromptPhonetic = prompt.0
-                        selectedPromptText = prompt.1
+                        // Toggle selection - if already selected, clear it
+                        if selectedPromptPhonetic == prompt.0 {
+                            selectedPromptPhonetic = ""
+                            selectedPromptText = ""
+                        } else {
+                            selectedPromptPhonetic = prompt.0
+                            selectedPromptText = prompt.1
+                        }
                     }) {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(prompt.0)
