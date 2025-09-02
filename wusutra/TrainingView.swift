@@ -206,6 +206,10 @@ struct TrainingView: View {
             trainingViewModel.apiBaseURL = apiBaseURL
             trainingViewModel.fetchTrainingStatus()
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            // Refresh model info when app comes to foreground
+            trainingViewModel.fetchCurrentModel()
+        }
         .alert("训练结果", isPresented: $trainingViewModel.showTrainingAlert) {
             Button("确定", role: .cancel) { }
         } message: {
@@ -304,13 +308,13 @@ class TrainingViewModel: ObservableObject {
     private var timer: Timer?
     
     init() {
-        // Mock data for now
+        // Initialize with default values - will be updated from API
         dialectProgress = [
-            DialectProgress(dialectName: "江阴话", count: 24, currentModel: "20250822-091919"),
-            DialectProgress(dialectName: "南京话", count: 156, currentModel: "20250822-091919"),
-            DialectProgress(dialectName: "合肥话", count: 89, currentModel: "20250822-091919"),
-            DialectProgress(dialectName: "上海话", count: 342, currentModel: "20250822-091919"),
-            DialectProgress(dialectName: "苏州话", count: 476, currentModel: "20250822-091919")
+            DialectProgress(dialectName: "江阴话", count: 0, currentModel: "加载中..."),
+            DialectProgress(dialectName: "南京话", count: 0, currentModel: "加载中..."),
+            DialectProgress(dialectName: "合肥话", count: 0, currentModel: "加载中..."),
+            DialectProgress(dialectName: "上海话", count: 0, currentModel: "加载中..."),
+            DialectProgress(dialectName: "苏州话", count: 0, currentModel: "加载中...")
         ]
         
         // Set next training date (mock - 2 days from now)
@@ -343,6 +347,9 @@ class TrainingViewModel: ObservableObject {
     
     func fetchTrainingStatus() {
         guard !apiBaseURL.isEmpty else { return }
+        
+        // Fetch both training status and current model
+        fetchCurrentModel()
         
         let url = URL(string: "\(apiBaseURL)/v1/training/status")!
         
@@ -387,6 +394,39 @@ class TrainingViewModel: ObservableObject {
                 }
             } catch {
                 print("Error parsing training status: \(error)")
+            }
+        }.resume()
+    }
+    
+    func fetchCurrentModel() {
+        guard !apiBaseURL.isEmpty else { return }
+        
+        let url = URL(string: "\(apiBaseURL)/v1/training/current-model")!
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error fetching current model: \(error)")
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let currentModel = json["current_model"] as? String {
+                    DispatchQueue.main.async {
+                        // Update all dialect progress with the current model
+                        self.dialectProgress = self.dialectProgress.map { progress in
+                            DialectProgress(
+                                dialectName: progress.dialectName,
+                                count: progress.count,
+                                currentModel: currentModel
+                            )
+                        }
+                    }
+                }
+            } catch {
+                print("Error parsing current model: \(error)")
             }
         }.resume()
     }
