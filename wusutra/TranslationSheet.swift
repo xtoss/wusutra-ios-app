@@ -195,10 +195,10 @@ struct TranslationSheet: View {
             characterCount = text.count
             isTextFieldFocused = true
             
-            // Attempt to get transcription only if text is empty
-            if text.isEmpty {
-                getTranscription()
-            }
+            // AUTO-TRANSCRIPTION DISABLED - users will input text manually
+            // if text.isEmpty {
+            //     getTranscription()
+            // }
         }
     }
     
