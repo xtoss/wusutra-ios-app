@@ -228,11 +228,15 @@ struct TrainingView: View {
                         trainingViewModel.selectedTrainingMode = .full
                         trainingViewModel.showManualTrainingAlert = true
                     },
+                    .default(Text("LoRA 训练 (实验性)")) {
+                        trainingViewModel.selectedTrainingMode = .lora
+                        trainingViewModel.showManualTrainingAlert = true
+                    },
                     .cancel(Text("取消"))
                 ]
             )
         }
-        .alert(trainingViewModel.selectedTrainingMode == .incremental ? "增量训练说明" : "完整训练说明", 
+        .alert(trainingViewModel.getTrainingModeTitle(), 
                isPresented: $trainingViewModel.showManualTrainingAlert) {
             Button("取消", role: .cancel) { }
             Button("开始训练", role: .destructive) {
@@ -241,29 +245,7 @@ struct TrainingView: View {
                 }
             }
         } message: {
-            if trainingViewModel.selectedTrainingMode == .incremental {
-                Text("""
-                🔄 增量训练模式
-                
-                • 只训练新增的音频文件
-                • 基于最新模型继续训练
-                • 训练时间较短，适合日常更新
-                • 保留之前的学习成果
-                
-                确定要继续吗？
-                """)
-            } else {
-                Text("""
-                🔨 完整训练模式
-                
-                • 训练所有音频文件
-                • 从基础 Whisper 模型开始训练
-                • 训练时间较长，但效果最佳
-                • 适合大量新数据或定期重训
-                
-                确定要继续吗？
-                """)
-            }
+            Text(trainingViewModel.getTrainingModeDescription())
         }
     }
 }
@@ -272,6 +254,7 @@ struct TrainingView: View {
 enum TrainingMode {
     case incremental
     case full
+    case lora
 }
 
 // Training Response Model
@@ -468,6 +451,60 @@ class TrainingViewModel: ObservableObject {
         }
     }
     
+    func getTrainingModeTitle() -> String {
+        switch selectedTrainingMode {
+        case .incremental:
+            return "增量训练说明"
+        case .full:
+            return "完整训练说明"
+        case .lora:
+            return "LoRA 训练说明"
+        case .none:
+            return "训练说明"
+        }
+    }
+    
+    func getTrainingModeDescription() -> String {
+        switch selectedTrainingMode {
+        case .incremental:
+            return """
+            🔄 增量训练模式
+            
+            • 只训练新增的音频文件
+            • 基于最新模型继续训练
+            • 训练时间较短，适合日常更新
+            • 保留之前的学习成果
+            
+            确定要继续吗？
+            """
+        case .full:
+            return """
+            🔨 完整训练模式
+            
+            • 训练所有音频文件
+            • 从基础 Whisper 模型开始训练
+            • 训练时间较长，但效果最佳
+            • 适合大量新数据或定期重训
+            
+            确定要继续吗？
+            """
+        case .lora:
+            return """
+            🧩 LoRA 训练模式 (实验性)
+            
+            • 使用低秩适配器技术
+            • 模型体积小 (~10MB)
+            • 训练速度快，内存占用低
+            • 适合快速实验和迭代
+            • 性能可能略低于完整训练
+            
+            确定要继续吗？
+            """
+        case .none:
+            return "请选择训练模式"
+        }
+    }
+    
     func triggerManualTraining() async {
         guard !apiBaseURL.isEmpty else {
             await MainActor.run {
@@ -477,7 +514,15 @@ class TrainingViewModel: ObservableObject {
             return
         }
         
-        let mode = selectedTrainingMode == .full ? "full" : "incremental"
+        let mode: String
+        switch selectedTrainingMode {
+        case .full:
+            mode = "full"
+        case .lora:
+            mode = "lora"
+        default:
+            mode = "incremental"
+        }
         let url = URL(string: "\(apiBaseURL)/v1/training/trigger?mode=\(mode)")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
