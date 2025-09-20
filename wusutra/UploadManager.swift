@@ -5,7 +5,7 @@ import SwiftUI
 class UploadManager: ObservableObject {
     @Published var uploadQueue: [String] = []
     @Published var isUploading = false
-    var apiBaseURL = "https://example.com"
+    var apiBaseURL = Constants.defaultAPIBaseURL
     
     private let maxRetries = 3
     private var baseDelay = 1.0

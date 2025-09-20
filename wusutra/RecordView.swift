@@ -13,6 +13,7 @@ struct RecordView: View {
     @State private var showingPhoneticSheet = false
     @State private var selectedPromptText = ""
     @State private var selectedPromptPhonetic = ""
+    @State private var selectedPromptIndex: Int? = nil
     
     var body: some View {
         NavigationView {
@@ -207,15 +208,26 @@ struct RecordView: View {
                 Spacer()
             }
             
-            let jiangYinPrompts = [
+            let jiangYinPrompts = [ // transliteration, translation
+                ("", "个"),
+                ("宁", "人"),
+                ("嗨伲", "咱们"),
+                ("一个刚硬人", "一个江阴人"),
                 ("嗨伲刚硬人", "咱们江阴人"),
-                ("", "手机充电器借我一下"),
-                ("", "电脑怎么打不开了"),
-                ("", "你昨晚几点睡的?差不多一点吧"),
+                ("亏", "块"),
+                ("一亏表", "一块表"),
+                ("砸", "只"),
+                ("一砸鸡", "一只鸡"),
+                ("差佛多", "差不多"),
+                ("宗头", "小时"),
+                ("", "差不多半个小时"),
+                ("", "差不多一个小时"),
+                ("", "手机充电器借我用用"),
+                ("", "电脑怎么打不开"),
+                ("", "你昨晚几点睡的?差不多一点钟"),
                 ("", "今天要不要去超市?好啊,我正好想买点水果."),
                 ("", "今天工作忙不忙?还好,比昨天轻松点."),
-                ("", "昨天跑步跑了多久?差不多半个小时,出了一身汗."),
-                ("", "刚才是谁打电话来的?快递员,说一会儿送到.")
+                ("", "刚刚是谁电话")
 //                ("切", "吃"),
 //                ("么时", "东西"),
 //                ("肥丝", "混蛋"),
@@ -281,11 +293,13 @@ struct RecordView: View {
             ], spacing: 8) {
                 ForEach(Array(jiangYinPrompts.enumerated()), id: \.offset) { index, prompt in
                     Button(action: {
-                        // Toggle selection - if already selected, clear it
-                        if selectedPromptPhonetic == prompt.0 {
+                        // Toggle selection using index instead of phonetic
+                        if selectedPromptIndex == index {
+                            selectedPromptIndex = nil
                             selectedPromptPhonetic = ""
                             selectedPromptText = ""
                         } else {
+                            selectedPromptIndex = index
                             selectedPromptPhonetic = prompt.0
                             selectedPromptText = prompt.1
                         }
@@ -304,11 +318,11 @@ struct RecordView: View {
                         .padding(.horizontal, 8)
                         .padding(.vertical, 6)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(selectedPromptPhonetic == prompt.0 ? Color.blue.opacity(0.5) : Color.blue.opacity(0.25))
+                        .background(selectedPromptIndex == index ? Color.blue.opacity(0.5) : Color.blue.opacity(0.25))
                         .foregroundColor(.white)
                         .cornerRadius(6)
                         .overlay(
-                            selectedPromptPhonetic == prompt.0 ? 
+                            selectedPromptIndex == index ? 
                             RoundedRectangle(cornerRadius: 6)
                                 .stroke(Color.blue, lineWidth: 2) : nil
                         )

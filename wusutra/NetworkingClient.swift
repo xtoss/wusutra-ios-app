@@ -37,7 +37,6 @@ class NetworkingClient {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.setValue("ngrok-skip-browser-warning", forHTTPHeaderField: "ngrok-skip-browser-warning")
         
         print("📋 Request headers:")
         request.allHTTPHeaderFields?.forEach { key, value in

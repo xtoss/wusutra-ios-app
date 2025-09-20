@@ -228,7 +228,7 @@ struct TrainingView: View {
                         trainingViewModel.selectedTrainingMode = .full
                         trainingViewModel.showManualTrainingAlert = true
                     },
-                    .default(Text("LoRA 训练 (实验性)")) {
+                    .default(Text("LoRA 训练 (推荐)")) {
                         trainingViewModel.selectedTrainingMode = .lora
                         trainingViewModel.showManualTrainingAlert = true
                     },
@@ -290,6 +290,9 @@ class TrainingViewModel: ObservableObject {
     var apiBaseURL = ""
     private var timer: Timer?
     
+    // Use ngrok URL specifically for training endpoints
+    private let trainingBaseURL = "https://b0d18855421b.ngrok-free.app"
+    
     init() {
         // Initialize with default values - will be updated from API
         dialectProgress = [
@@ -329,14 +332,14 @@ class TrainingViewModel: ObservableObject {
     }
     
     func fetchTrainingStatus() {
-        guard !apiBaseURL.isEmpty else { return }
-        
         // Fetch both training status and current model
         fetchCurrentModel()
         
-        let url = URL(string: "\(apiBaseURL)/v1/training/status")!
+        let url = URL(string: "\(trainingBaseURL)/v1/training/status")!
+        var request = URLRequest(url: url)
+        request.setValue("ngrok-skip-browser-warning", forHTTPHeaderField: "ngrok-skip-browser-warning")
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error fetching training status: \(error)")
                 return
@@ -382,11 +385,11 @@ class TrainingViewModel: ObservableObject {
     }
     
     func fetchCurrentModel() {
-        guard !apiBaseURL.isEmpty else { return }
+        let url = URL(string: "\(trainingBaseURL)/v1/training/current-model")!
+        var request = URLRequest(url: url)
+        request.setValue("ngrok-skip-browser-warning", forHTTPHeaderField: "ngrok-skip-browser-warning")
         
-        let url = URL(string: "\(apiBaseURL)/v1/training/current-model")!
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error fetching current model: \(error)")
                 return
@@ -415,11 +418,10 @@ class TrainingViewModel: ObservableObject {
     }
     
     func requestTraining(for dialectName: String) {
-        guard !apiBaseURL.isEmpty else { return }
-        
-        var request = URLRequest(url: URL(string: "\(apiBaseURL)/api/training/request")!)
+        var request = URLRequest(url: URL(string: "\(trainingBaseURL)/v1/training/request")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("ngrok-skip-browser-warning", forHTTPHeaderField: "ngrok-skip-browser-warning")
         
         let body = ["dialect_name": dialectName]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -490,7 +492,7 @@ class TrainingViewModel: ObservableObject {
             """
         case .lora:
             return """
-            🧩 LoRA 训练模式 (实验性)
+            🧩 LoRA 训练模式 (推荐)
             
             • 使用低秩适配器技术
             • 模型体积小 (~10MB)
@@ -506,14 +508,6 @@ class TrainingViewModel: ObservableObject {
     }
     
     func triggerManualTraining() async {
-        guard !apiBaseURL.isEmpty else {
-            await MainActor.run {
-                self.trainingMessage = "错误：API地址未配置"
-                self.showTrainingAlert = true
-            }
-            return
-        }
-        
         let mode: String
         switch selectedTrainingMode {
         case .full:
@@ -523,10 +517,11 @@ class TrainingViewModel: ObservableObject {
         default:
             mode = "incremental"
         }
-        let url = URL(string: "\(apiBaseURL)/v1/training/trigger?mode=\(mode)")!
+        let url = URL(string: "\(trainingBaseURL)/v1/training/trigger?mode=\(mode)")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("ngrok-skip-browser-warning", forHTTPHeaderField: "ngrok-skip-browser-warning")
         request.timeoutInterval = 10  // Quick timeout since we're not waiting for training completion
         
         do {
