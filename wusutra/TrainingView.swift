@@ -290,8 +290,10 @@ class TrainingViewModel: ObservableObject {
     var apiBaseURL = ""
     private var timer: Timer?
     
-    // Use ngrok URL specifically for training endpoints
-    private let trainingBaseURL = "https://b0d18855421b.ngrok-free.app"
+    // Training base URL - can be configured via Settings
+    private var trainingBaseURL: String {
+        return apiBaseURL.isEmpty ? "http://localhost:8000" : apiBaseURL
+    }
     
     init() {
         // Initialize with default values - will be updated from API

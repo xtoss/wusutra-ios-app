@@ -208,23 +208,24 @@ struct TranslationSheet: View {
         hasTranscribed = false
         
         let fileURL = recordingManager.getFileURL(for: recording)
-        let apiBaseURL = UserDefaults.standard.string(forKey: "API_BASE_URL") ?? Constants.defaultAPIBaseURL
+        let inferenceURL = UserDefaults.standard.string(forKey: "INFERENCE_URL") ?? Constants.defaultInferenceURL
         
-        guard !apiBaseURL.isEmpty else {
-            transcriptionError = "请先设置API服务器地址"
+        guard !inferenceURL.isEmpty else {
+            transcriptionError = "请先设置推理服务器地址"
             isLoadingTranscription = false
             return
         }
         
         // Create transcription request
-        guard let url = URL(string: "\(apiBaseURL)/v1/transcribe") else {
-            transcriptionError = "无效的API地址"
+        guard let url = URL(string: "\(inferenceURL)/v1/transcribe") else {
+            transcriptionError = "无效的推理API地址"
             isLoadingTranscription = false
             return
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.setValue("ngrok-skip-browser-warning", forHTTPHeaderField: "ngrok-skip-browser-warning")
         
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
